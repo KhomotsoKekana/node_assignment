@@ -1,0 +1,79 @@
+📝 Goal
+
+Build a simple REST API in Node.js using Express that allows a user to manage tasks.
+
+📋 Requirements
+
+Build the following endpoints:
+
+GET /tasks
+Return all tasks from a mock in-memory array.
+
+POST /tasks
+Accept JSON input: { title: string, description: string }
+
+Validate that title and description are not empty.
+Return 400 if validation fails.
+Add the task to the in-memory array.
+Return the newly created task.
+GET /tasks/:id
+Return the task with the given ID.
+Return 404 if not found.
+GET /tasks/summary
+Return a summary like:
+
+{
+
+  "total": 2,
+
+  "titles": ["Task 1", "Task 2"]
+
+}
+
+DELETE /tasks/:id
+Delete the task with the given ID.
+Return a success message like: { "message": "Task deleted successfully" }
+🏡 Take-Home Extension Assignment
+
+Thank you for completing the live coding session! To take your Task Manager API to the next level, please implement the following enhancements as part of a short take-home project.
+
+📌 Objectives
+
+Extend your existing Node.js + Express Task Manager API with the following improvements:
+
+1. 🔐 Implement Authentication Middleware
+
+Add a basic middleware to simulate authentication (hardcoded token is fine for now).
+Only allow access to the API if a valid token is present in the Authorization header.
+2. ✅ Add Task Completion Status
+
+Each task should now include a completed: boolean field (default false).
+Add an endpoint or support a PATCH /tasks/:id call to update the completed status.
+3. 🗓️ Add Due Date & Overdue Filter
+
+Add a dueDate field to tasks (ISO date string).
+Support filtering tasks via query:
+GET /tasks?overdue=true — returns only tasks with a due date in the past.
+4. 🔍 Add Task Search
+
+Enhance GET /tasks?q=keyword to filter tasks where the title or description includes the keyword (case-insensitive).
+5. 🗃️ Migrate to MongoDB
+
+Replace the in-memory store with a MongoDB collection.
+Use Mongoose or native MongoDB driver to:
+Create a Task model/schema
+Perform all CRUD operations against the database
+6. 🗃️ Creativity (Optional but Recommended)
+
+Now that the basic Task Manager API is complete, please describe and implement (optional) 2-3 improvements, or additions, you would make onto this task manager API.
+
+Use the scenario that this task manager would be used by contact centre agents to manager tasks.
+Your goal is to demonstrate how you would evolve a small project toward production quality.
+✅ Submission Guidelines
+
+Submit your project via a public GitHub repository.
+Include a README.md with:
+Setup instructions
+Example requests (e.g., using curl or Postman)
+Any decisions or assumptions you made
+Try to keep the code clean, modular, and easy to read.
