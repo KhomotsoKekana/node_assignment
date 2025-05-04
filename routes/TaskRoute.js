@@ -3,7 +3,7 @@ const router = express.Router();
 const Task = require('../models/tasks');
 const jwt = require('jsonwebtoken');
 
-//router.use(authenticateToken)
+router.use(authenticateToken)
 
 router.get('/', async (req, res) => {
   try {
@@ -21,7 +21,9 @@ router.get('/:id', getTasks, (req, res) => {
 router.post('/', async (req, res) => {
   const task = new Task({
     name: req.body.name,
-    taskDescription: req.body.taskDescription
+    taskDescription: req.body.taskDescription,
+    dueDate:req.body.dueDate,
+    completed:req.body.completed
   })
   try {
     const newTask = await task.save()
@@ -33,7 +35,7 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', getTasks, async (req, res) => {
   if (req.body.completed != null) {
-    res.task.completed = req.body.name
+    res.task.completed = req.body.completed
   }
   try {
     const updatedTask = await res.task.save()
@@ -93,6 +95,16 @@ router.get('/search', async (req, res) => {
       const tasks = await Task.find(filter);
   
       res.json(tasks);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
+  router.get('/summary', async (req, res) => {
+    try {
+      const tasks = await Task.find({}, 'name');
+      const titles = tasks.map(task => task.name);
+      res.json({ total: tasks.length, titles });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

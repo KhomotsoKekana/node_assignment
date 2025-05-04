@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server",
-    "devAuth": "nodemon authenticationServer"
+    "devAuth": "nodemon authServer"
   },
   "author": "",
   "license": "ISC",
