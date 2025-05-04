@@ -8,4 +8,8 @@ Task summary endpoint can also found in TaskRouter.js
 
 it's placed in sub folders such routes folder containing http methods that perform crud functions, authentication folder that logs in the user and bring back tokens and model folder which holds the task schema.
 
+Improvements or implementations made : 
+Implemented JWT authentication
+Added refresh token mechanism
+
 The env file & node modules were ignored when pushing the project to github
