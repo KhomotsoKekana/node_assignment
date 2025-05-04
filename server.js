@@ -7,7 +7,8 @@ const taskRouter = require('./routes/TaskRoute')
 
 //var task = [{title:'test',description:'testDescrption'}];
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+//mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DATABASE_URL)
     .then(() => console.log('yay connected!'))
     .catch(err  => console.error("Could not connect to the db",err))
 

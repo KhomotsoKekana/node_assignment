@@ -14,9 +14,9 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/:id', getTasks, (req, res) => {
-  res.json(res.task)
-})
+// router.get('/:id', getTasks, (req, res) => {
+//   res.json(res.task)
+// })
 
 router.post('/', async (req, res) => {
   const task = new Task({
@@ -71,34 +71,6 @@ router.delete('/:id', getTasks, async (req, res) => {
   }
 })
 
-router.get('/search', async (req, res) => {
-    try {
-      const { dueDate, overdue, q } = req.query;
-  
-      let filter = {};
-      if (dueDate) {
-        filter.dueDate = new Date(dueDate);
-      }
-  
-      if (overdue === 'true') {
-        const now = new Date();
-        filter.dueDate = { $lt: now };
-      }
-  
-      if (q) {
-        const searchRegex = new RegExp(q, 'i');
-        filter.$or = [
-          { name: { $regex: searchRegex } },
-          { taskDescription: { $regex: searchRegex } }
-        ];
-      }
-      const tasks = await Task.find(filter);
-  
-      res.json(tasks);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  });
 
   router.get('/summary', async (req, res) => {
     try {
@@ -109,6 +81,31 @@ router.get('/search', async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   });
+
+  router.get('/search', async (req, res) => {
+    try {
+      const q = req.query.q;
+      if (!q) {
+        return res.status(400).json({ message: 'Enter a query parameter (q)' });
+      }
+  
+      const searchRegex = new RegExp(q, 'i');
+  
+      const filter = {
+        $or: [
+          { name: { $regex: searchRegex } },
+          { taskDescription: { $regex: searchRegex } }
+        ]
+      };
+  
+      const tasks = await Task.find(filter);
+      res.json(tasks);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+  
+  
   
 
 // middleware
