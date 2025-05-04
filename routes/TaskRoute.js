@@ -14,10 +14,6 @@ router.get('/', async (req, res) => {
   }
 })
 
-// router.get('/:id', getTasks, (req, res) => {
-//   res.json(res.task)
-// })
-
 router.post('/', async (req, res) => {
   const task = new Task({
     name: req.body.name,
@@ -52,10 +48,14 @@ router.put('/:id', getTasks, async (req, res) => {
     if (req.body.taskDescription != null) {
       res.task.taskDescription = req.body.taskDescription;
     }
+    if (req.body.dueDate != null) {
+      res.task.dueDate = new Date(req.body.dueDate)
+    }
   
     try {
       const updatedTask = await res.task.save();
-      res.json(updatedTask);
+      res.json( {message: 'updated task',
+       updatedTask: updatedTask});
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
@@ -105,7 +105,9 @@ router.delete('/:id', getTasks, async (req, res) => {
     }
   });
   
-  
+  router.get('/:id', getTasks, (req, res) => {
+    res.json(res.task)
+  })
   
 
 // middleware
